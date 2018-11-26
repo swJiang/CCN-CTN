@@ -31,8 +31,8 @@ def compute_valid_roc(labels, distance, name):
     elif name is "CCN":
         auc_ = roc_auc_score(labels, distance)
         fpr, tpr, thresholds = roc_curve(labels, distance)
-        index = np.argmin(np.abs(tpr - 0.95))
 
+    index = np.argmin(np.abs(tpr - 0.95))
     fpr95 = fpr[index]
     print("\n")
     print('>>>@fpr95:%.5f' % fpr95, 'auc:%.3f' % auc_)
