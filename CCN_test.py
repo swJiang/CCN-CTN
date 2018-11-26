@@ -44,4 +44,4 @@ out_ = sess.run(nn_out, feed_dict={xs: x})
 logits.extend(out_.tolist()[end - len(test_images):])
 labels.extend(y.tolist()[end - len(test_images):])
 
-compute_valid_roc(labels, logits)
+compute_valid_roc(labels, logits, "CCN")

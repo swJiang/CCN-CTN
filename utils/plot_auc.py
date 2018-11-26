@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import roc_auc_score,roc_curve
 
 
-def compute_valid_roc(labels, distance):
+def compute_valid_roc(labels, distance, name):
     '''
     Note:this a metric learning so match pairs have more little distance
          non-match pairs have more bigger distance,but standard roc compute
@@ -22,14 +22,17 @@ def compute_valid_roc(labels, distance):
     plt.plot(list(range(50000)), pos_distance, 'r*', label='match-distance')
     plt.plot(list(range(50000)), neg_distance, 'gp', label='nonmatch-distance')
     plt.legend()
-    plot_npy = np.concatenate((pos_distance, neg_distance),axis=0)
-    np.save("./ss.npy",plot_npy)
-    # reverse distance to reassure match pair have bigger score
-    # non-macth pair have little score
-    # reverse_dist = np.max(distance) - distance
-    auc_ = roc_auc_score(labels, distance)
-    fpr, tpr, thresholds = roc_curve(labels, distance)
-    index = np.argmin(np.abs(tpr - 0.95))
+
+    if name is "CTN":
+        reverse_dist = np.max(distance) - distance
+        auc_ = roc_auc_score(labels, reverse_dist)
+        fpr, tpr, thresholds = roc_curve(labels, reverse_dist)
+
+    elif name is "CCN":
+        auc_ = roc_auc_score(labels, distance)
+        fpr, tpr, thresholds = roc_curve(labels, distance)
+        index = np.argmin(np.abs(tpr - 0.95))
+
     fpr95 = fpr[index]
     print("\n")
     print('>>>@fpr95:%.5f' % fpr95, 'auc:%.3f' % auc_)

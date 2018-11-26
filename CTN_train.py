@@ -73,6 +73,6 @@ for epoch in range(cfg.epoch_num):
     dis = sess.run(distance, feed_dict={x1: x_1, x2: x_2})
     dis_.extend(dis.tolist()[end - len(test_images):])
     y_.extend(y.tolist()[end - len(test_images):])
-    compute_valid_roc(y_, dis_)
+    compute_valid_roc(y_, dis_, "CTN")
 
     saver.save(sess,ckpt_path, global_step=epoch)

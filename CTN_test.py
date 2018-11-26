@@ -46,4 +46,4 @@ out_ = sess.run(distance, feed_dict={x1: x_1, x2: x_2})
 logits.extend(out_.tolist()[end - len(test_images):])
 labels.extend(y.tolist()[end - len(test_images):])
 
-compute_valid_roc(labels, logits)
+compute_valid_roc(labels, logits,"CTN")
